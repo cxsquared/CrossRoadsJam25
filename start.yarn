@@ -1,0 +1,319 @@
+title: WakeUp
+---
+You wake up groggy.
+Unsure if you should get up or sleep a little longer
+-> Stay in bed
+    <<success>>
+    <<jump School>>
+-> Get up
+You stare at your phone a few more minutes before finally lifting yourself up.
+You head to the bathroom to start your day.
+The mirror reflects your half closed eyes back at you.
+You reach for your tooth brush.
+-> Not today
+    <<success>>
+    <<jump School>>
+-> Maybe I'll even floss
+Down the stairs you hear the coffee machine kick on.
+Your legs drag you down the stairs towards the kitchen.
+As the coffee finishes dripping you contemplate if you are hungry or not.
+-> I'll just eat later
+-> I'll just eat later
+-> I'll just eat later
+<<success>>
+<<jump School>>
+===
+title: School
+---
+The bell rings signaling class is about to start.
+Not even 10 minutes into the teachers lesson, your eyes start to droop.
+-> fall asleep
+    <<success>>
+    <<jump Romance>>
+-> Stay awake
+You take a drink of your water to stave off your slumber.
+You don't feel like you've really learned anything, but at least you looked the part.
+Lunch time approaches.
+Sometimes the best part of the day.
+Sometimes the worst.
+You stare out the classroom window and wonder what you'll have for lunch.
+-> Some chips and a soda from the vending machine
+    <<success>>
+    <<jump Romance>>
+-> I brought my lunch
+You pass by a bulletin board full of useless things.
+One posting catches your eye.
+It's a casting call for the up coming drama department play.
+"This could be fun", you think to yourself.
+-> I don't have time
+-> I don't have time
+-> I don't have time
+<<success>>
+<<jump Romance>>
+===
+title: Romance
+---
+Your eyes aren't fixed on anything particular but you look forward deeply into the wall.
+The world is blocked, drowned out by  the music being pumped through your headphones.
+You feel a bump on your shoulder.
+Someone has chosen to sit down next to you in this empty hallway.
+-> Ignore them
+    <<success>>
+    <<jump College>>
+-> Talk to them
+The clock is ticking down.
+The race to grab your things from your locker and make it to then next class has begun.
+As you pace to your next class you notice that same someone walking towards you.
+They raise their hand and give you a wave.
+-> Ignore them
+    <<success>>
+    <<jump College>>
+-> Talk to them
+You are sitting in a classroom you often visit.
+Mostly because you don't think anyone else knows about it.
+Unexpectedly the door creeks open.
+That same someone sits down.
+Not closely but not far from you.
+They begin to read a book.
+You can't help but notice they keep glancing up at you.
+Does this mean you are glancing back?
+-> Ignore them
+    <<success>>
+    <<jump College>>
+-> Talk to them
+You are cornered in an empty gym.
+Just like many times before, you've managed to cross paths with that same someone.
+This time they talk first and you think you here words of attraction spill from their mouth.
+-> Ignore them
+-> Ignore them
+-> Ignore them
+<<success>>
+<<jump College>>
+===
+title: College
+---
+The courtyard, or quad as you will eventually learn, stretches out in front of you.
+The buildings standing tall and new all around you.
+Full of potential.
+Potential for what?
+You don't quite know yet.
+Stalls are erected inviting you to join the many groups that represent just a small selection of the communities you'll interact with over the next few years.
+-> Continue walking to your dorm
+    <<success>>
+    <<jump JobHunt>>
+-> Examine the Stalls
+The projector flips to the next slide.
+You take in and note as much information as you can.
+Your brain darts back and forth between the content of the slides and the words spoken by the professor.
+Your brain is lucky enough to be focused on the professor as they ask a question you think you know the answer to.
+-> Wait for someone else
+    <<success>>
+    <<jump JobHunt>>
+-> Raise your hand
+You can't help but notice you are starting to struggle in class.
+But as you look around, you can't help but feel everyone is struggling.
+Sure enough after class one student invites you to a study group that meets in the library.
+-> Head to your room for the night
+    <<success>>
+    <<jump JobHunt>>
+-> Go to the library
+Finals are coming up.
+You wonder if this is a defining moment in your life or just another stop along the way.
+How will you do on these projects and tests?
+Are you prepared for what is to come?
+-> your're fine
+-> your're fine
+-> your're fine
+<<success>>
+<<jump JobHunt>>
+===
+title: JobHunt
+---
+College is almost over.
+What happens next?
+You've made some friends and connections at various places.
+Maybe they'll have some helpful next steps for you.
+-> Scroll on twitter
+    <<success>>
+    <<jump Job>>
+-> Reach out
+The days are going on forever.
+Everything seems like a constant repeating cycle.
+Is this what growing up is all about?
+If you just send a few more resumes out then maybe something will change?
+Change is what you want right?
+-> Open TikTok 
+    <<success>>
+    <<jump Job>>
+-> Send more resumes
+* Ding *
+You hear the sound of possibility come from your phone.
+The little circle indicates you've gotten a message from what appears to be some kind of recruiter.
+Is this it?
+Maybe this is a scam.
+Surely it can't hurt to respond.
+-> Browse Reddit
+    <<success>>
+    <<jump Job>>
+-> Reply
+You check your phone even though you checked it 10 seconds ago.
+Habitually glancing at your lack of notifications.
+Except somethings different.
+A little "1" next to your messaging app.
+You open it up and realize a friend thinks you'd be a good fit for a new role at their job.
+This is too good to be true.
+-> Turn off your phone
+-> Turn off your phone
+-> Turn off your phone
+<<success>>
+<<jump Job>>
+===
+title: Job
+---
+The smell of gas lingers in the air.
+Surrounded in the jungle of metal.
+Everyone is trying to get somewhere.
+You are hoping that your somewhere arrives soon.
+You're already pushing it but your destination, your new job, is in sight.
+-> Detour for some coffee
+    <<success +>>
+    <<jump Parents>>
+-> Keep heading towards work 
+Click-clacking away on your next to-do task.
+Things aren't going quick but at least they are going steady.
+You tell yourself all this even though you know the launch date is quickly approaching.
+Your boss isn't going to be happy if this work doesn't get done.
+-> Take a long lunch
+    <<success +>>
+    <<jump Parents>>
+-> Finish up your work
+You check your calendar to see what's coming up tomorrow.
+Ugghhh...
+Your boss scheduled a meeting an hour before you normally go in.
+Just because you show up a little latter than everyone else doesn't mean you do a bad job.
+-> Stay up late at the bar
+    <<success +>>
+    <<jump Parents>>
+-> Go to bed early
+You can't believe it...
+Everything went PERFECT.
+Your boss is happy.
+The customers are happy.
+Your coworkers are happy.
+Everyone is so excited to celebrate this success (especially since work is paying).
+It's time to finally release all this stress.
+-> Go home
+-> Go home
+-> Go home
+<<success +>>
+<<jump Parents>>
+===
+title: Parents
+---
+You go through your mail and sift through the usual junk.
+You're left with an envelope from your mom.
+"HAPPY BIRTHDAY!!!", the front of the card screams at you.
+The words inside are very sweet.
+You should call her.
+-> Maybe later
+    <<success +>>
+    <<jump Promotion>>
+-> Call her
+Knock, Knock, Knock.
+You open the door to see your dad smiling back at you.
+He brought you some chili he made yesterday.
+The container is still cold to the touch but the lingering scent and weigth feel bursting with comfort.
+You know this is going to taste great.
+-> Say goodbye 
+    <<success +>>
+    <<jump Promotion>>
+-> Invite him in
+    <<success +>>
+    <<jump Promotion>>
+* Ring Ring *
+How's work going?
+How are the pets?
+How's your life?
+You struggle to gauge how much they actually care about your response.
+You do try and put in your best performance but it's not always easy.
+Still they'd feel better if it sounds like you feel better.
+-> Stay silent
+    <<success +>>
+    <<jump Promotion>>
+-> Care
+Each day that looms forward feels more dreadful than the last.
+Soon it'll be your family reunion.
+I'm sure everyone's excited to cook out and catch up.
+Excitement, or at least a vague sense of caring, is to be expected right?
+At least I'm sure everyone is excited to see you.
+It's been too long.
+-> Stay home
+-> Stay home
+-> Stay home
+<<success>>
+<<jump Promotion>>
+===
+title: Promotion
+---
+Have you ever been comfortably trapped somewhere?
+It's hard for you to imagine trapped being comfortable.
+But it's a grip that keeps you sustained.
+Those above you are satisfied and those around you appreciate you.
+You just need to put in a little more work and it will all be worth it.
+-> Do nothing
+    <<success>>
+    <<jump Future>>
+-> Continue on
+You're almost there.
+The money almost feels worth it.
+Your boss has laid out what you need to do next.
+It won't be easy but it's for sure doable.
+-> Do nothing
+    <<success>>
+    <<jump Future>>
+-> Continue on
+Congratulations!
+Your boss seems thrilled with your success.
+Thrill is filling the room.
+Surrounding your skin with the tension of forward momentum.
+Everyone's proud of you.
+-> Do nothing
+    <<success>>
+    <<jump Future>>
+-> Continue on
+This new responsibility consumes you.
+There's too many people depending on your next steps.
+Too much riding on this moment for you to let everyone down.
+This moment feels like all the others.
+-> Do nothing
+-> Do nothing
+-> Do nothing
+<<success>>
+<<jump Future>>
+===
+title: Future
+---
+Do I deserve to be here?
+I'm scarred.
+I think we all are.
+-> I should be here
+-> I shouldn't be here
+It's a lifetime.
+It's a blitz.
+Everything that has and will be done.
+Did I do it?
+Or did someone else?
+-> I should be here
+-> I shouldn't be here
+I did the right things right?
+Am I the right thing?
+Am I the right person that should be here and now.
+-> I should be here
+-> I shouldn't be here
+...
+...
+...
+-> I should be here
+-> I shouldn't be here
+.........
+===
