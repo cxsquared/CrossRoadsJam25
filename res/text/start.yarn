@@ -1,7 +1,6 @@
 title: WakeUp
 ---
-You wake up groggy.
-Unsure if you should get up or sleep a little longer
+You wake up groggy, unsure if you should get up or sleep a little longer
 -> Stay in bed
     <<success>>
     <<jump School>>
@@ -9,14 +8,14 @@ Unsure if you should get up or sleep a little longer
 You stare at your phone a few more minutes before finally lifting yourself up.
 You head to the bathroom to start your day.
 The mirror reflects your half closed eyes back at you.
-You reach for your tooth brush.
+You reach for your toothbrush.
 -> Not today
     <<success>>
     <<jump School>>
 -> Maybe I'll even floss
-Down the stairs you hear the coffee machine kick on.
+Down the stairs, you hear the coffee machine kick on.
 Your legs drag you down the stairs towards the kitchen.
-As the coffee finishes dripping you contemplate if you are hungry or not.
+As the coffee finishes dripping, you contemplate if you are hungry or not.
 -> I'll just eat later
 -> I'll just eat later
 -> I'll just eat later
@@ -26,7 +25,7 @@ As the coffee finishes dripping you contemplate if you are hungry or not.
 title: School
 ---
 The bell rings signaling class is about to start.
-Not even 10 minutes into the teachers lesson, your eyes start to droop.
+Not even 10 minutes into the teacher's lesson, your eyes start to droop.
 -> fall asleep
     <<success>>
     <<jump Romance>>
@@ -43,7 +42,7 @@ You stare out the classroom window and wonder what you'll have for lunch.
 -> I brought my lunch
 You pass by a bulletin board full of useless things.
 One posting catches your eye.
-It's a casting call for the up coming drama department play.
+It's a casting call for the upcoming drama department play.
 "This could be fun", you think to yourself.
 -> I don't have time
 -> I don't have time
@@ -71,9 +70,9 @@ They raise their hand and give you a wave.
 -> Talk to them
 You are sitting in a classroom you often visit.
 Mostly because you don't think anyone else knows about it.
-Unexpectedly the door creeks open.
+Unexpectedly the door creaks open.
 That same someone sits down.
-Not closely but not far from you.
+Not closely, but not far from you.
 They begin to read a book.
 You can't help but notice they keep glancing up at you.
 Does this mean you are glancing back?
@@ -83,7 +82,7 @@ Does this mean you are glancing back?
 -> Talk to them
 You are cornered in an empty gym.
 Just like many times before, you've managed to cross paths with that same someone.
-This time they talk first and you think you here words of attraction spill from their mouth.
+This time they talk first and you think you hear words of attraction spill from their mouth.
 -> Ignore them
 -> Ignore them
 -> Ignore them
@@ -121,9 +120,9 @@ Finals are coming up.
 You wonder if this is a defining moment in your life or just another stop along the way.
 How will you do on these projects and tests?
 Are you prepared for what is to come?
--> your're fine
--> your're fine
--> your're fine
+-> you're fine
+-> you're fine
+-> you're fine
 <<success>>
 <<jump JobHunt>>
 ===
@@ -141,7 +140,7 @@ The days are going on forever.
 Everything seems like a constant repeating cycle.
 Is this what growing up is all about?
 If you just send a few more resumes out then maybe something will change?
-Change is what you want right?
+Change is what you want, right?
 -> Open TikTok 
     <<success>>
     <<jump Job>>
@@ -190,7 +189,7 @@ Your boss isn't going to be happy if this work doesn't get done.
 You check your calendar to see what's coming up tomorrow.
 Ugghhh...
 Your boss scheduled a meeting an hour before you normally go in.
-Just because you show up a little latter than everyone else doesn't mean you do a bad job.
+Just because you show up a little later than everyone else doesn't mean you do a bad job.
 -> Stay up late at the bar
     <<success +>>
     <<jump Parents>>
@@ -238,7 +237,7 @@ You struggle to gauge how much they actually care about your response.
 You do try and put in your best performance but it's not always easy.
 Still they'd feel better if it sounds like you feel better.
 -> Stay silent
-    <<success +>>
+    <<success>>
     <<jump Promotion>>
 -> Care
 Each day that looms forward feels more dreadful than the last.
@@ -256,7 +255,7 @@ It's been too long.
 title: Promotion
 ---
 Have you ever been comfortably trapped somewhere?
-It's hard for you to imagine trapped being comfortable.
+It's hard for you to imagine "trapped" being comfortable.
 But it's a grip that keeps you sustained.
 Those above you are satisfied and those around you appreciate you.
 You just need to put in a little more work and it will all be worth it.
@@ -283,8 +282,7 @@ Everyone's proud of you.
 -> Continue on
 This new responsibility consumes you.
 There's too many people depending on your next steps.
-Too much riding on this moment for you to let everyone down.
-This moment feels like all the others.
+Too much riding on this moment for you to let everyone down, this moment feels like all the others.
 -> Do nothing
 -> Do nothing
 -> Do nothing
@@ -294,7 +292,7 @@ This moment feels like all the others.
 title: Future
 ---
 Do I deserve to be here?
-I'm scarred.
+I'm scared.
 I think we all are.
 -> I should be here
 -> I shouldn't be here
@@ -305,9 +303,9 @@ Did I do it?
 Or did someone else?
 -> I should be here
 -> I shouldn't be here
-I did the right things right?
+I did the right things, right?
 Am I the right thing?
-Am I the right person that should be here and now.
+Am I the right person that should be here and now?
 -> I should be here
 -> I shouldn't be here
 ...
