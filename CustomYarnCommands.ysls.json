@@ -1,0 +1,12 @@
+{
+  "Commands": [
+    {
+      "YarnName": "success",
+      "DefinitionName": "onSuccess",
+      "Language": "hx",
+      "Documentation": "Triggers success animation",
+      "Signature": "success()",
+      "Parameters": []
+    }
+  ]
+}
