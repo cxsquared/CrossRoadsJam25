@@ -217,7 +217,7 @@ class Main extends hxd.App {
 				i.height = t.textHeight;
 				i.visible = true;
 				i.onClick = function(e:hxd.Event) {
-					if (options != null && e.keyCode == Key.MOUSE_LEFT) {
+					if (options != null && (e.keyCode == Key.MOUSE_LEFT || e.button == 0)) {
 						selectOption(option.id);
 						i.onClick = null;
 					}
