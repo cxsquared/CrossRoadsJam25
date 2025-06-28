@@ -39,8 +39,8 @@ class Main extends hxd.App {
 	var firstFrame = true;
 
 	var successText:Text;
-	var successTextOnLength = 1;
-	var successTextOffLength = .66;
+	var successTextOnLength:Float = 1;
+	var successTextOffLength:Float = .75;
 	var successTextTimer:Float = 0;
 
 	var successBar:Bar;
@@ -57,6 +57,7 @@ class Main extends hxd.App {
 	var nextSceneTimer:Float = 0;
 	var nextSceneTrigger = false;
 
+	var end = false;
 	var onTitle = true;
 	var textBox:Bitmap;
 
@@ -216,21 +217,16 @@ class Main extends hxd.App {
 				i.height = t.textHeight;
 				i.visible = true;
 				i.onClick = function(e:hxd.Event) {
-					if (e.keyCode == Key.MOUSE_LEFT) {
-						dialogue.dialogue.setSelectedOption(option.id);
-						clearOptions();
-						options = null;
-						optionFlow.visible = false;
+					if (options != null && e.keyCode == Key.MOUSE_LEFT) {
+						selectOption(option.id);
 						i.onClick = null;
-						dialogue.resume();
-						textBox.visible = false;
 					}
 				}
 			}
 		}
 
-		dialogue.dialogue.nodeCompleteHandler = function(nodeName:String) {
-			if (nodeName == "Promotion") {
+		dialogue.dialogue.nodeStartHandler = function(nodeName:String) {
+			if (nodeName == "Future") {
 				bg.visible = false;
 				return;
 			}
@@ -255,7 +251,27 @@ class Main extends hxd.App {
 				successParticles.visible = true;
 				successParticles.getGroup('Left').speed = 400;
 				successParticles.getGroup('Right').speed = 400;
+				textBox.visible = false;
+				optionFlow.visible = false;
 			}
+		};
+
+		dialogue.dialogue.nodeCompleteHandler = function(nodeName:String) {
+			textBox.visible = false;
+			optionFlow.visible = false;
+		}
+
+		dialogue.dialogue.dialogueCompleteHandler = function() {
+			bg.visible = false;
+			textBox.visible = false;
+			optionFlow.visible = false;
+			options = null;
+			end = true;
+
+			var fin = new Text(textFont, s2d);
+			fin.text = "The feature freaks me out...";
+			fin.x = width / 2 - fin.textWidth / 2;
+			fin.y = height / 2 - fin.textHeight / 2;
 		};
 	}
 
@@ -266,6 +282,7 @@ class Main extends hxd.App {
 		bg.tile = backgrounds[0];
 		bgIndex = 0;
 		onTitle = false;
+		bg.visible = true;
 	}
 
 	function moveSuccessText() {
@@ -285,6 +302,15 @@ class Main extends hxd.App {
 		options = null;
 	}
 
+	function selectOption(id:Int) {
+		dialogue.dialogue.setSelectedOption(id);
+		options = null;
+		optionFlow.visible = false;
+		textBox.visible = false;
+		dialogue.resume();
+		clearOptions();
+	}
+
 	override function update(dt:Float) {
 		super.update(dt);
 
@@ -293,6 +319,10 @@ class Main extends hxd.App {
 		}
 
 		if (onTitle) {
+			return;
+		}
+
+		if (end) {
 			return;
 		}
 
@@ -367,23 +397,11 @@ class Main extends hxd.App {
 
 		if (options != null) {
 			if (Key.isPressed(Key.NUMBER_1)) {
-				dialogue.dialogue.setSelectedOption(0);
-				options = null;
-				optionFlow.visible = false;
-				textBox.visible = false;
-				dialogue.resume();
+				selectOption(0);
 			} else if (options.options.length > 1 && Key.isPressed(Key.NUMBER_2)) {
-				dialogue.dialogue.setSelectedOption(1);
-				options = null;
-				optionFlow.visible = false;
-				textBox.visible = false;
-				dialogue.resume();
+				selectOption(1);
 			} else if (options.options.length > 2 && Key.isPressed(Key.NUMBER_3)) {
-				dialogue.dialogue.setSelectedOption(2);
-				options = null;
-				optionFlow.visible = false;
-				textBox.visible = false;
-				dialogue.resume();
+				selectOption(2);
 			}
 		}
 	}
