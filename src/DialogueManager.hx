@@ -21,12 +21,6 @@ class DialogueManager {
 	public function new() {
 		dialogue = new Dialogue(new MemoryVariableStore());
 
-		dialogue.library.registerFunction("success", 0, function(values:Array<Value>) {
-			trace("success");
-			dialogue.resume();
-			return "Success +";
-		}, BuiltInTypes.string);
-
 		dialogue.logDebugMessage = this.logDebugMessage;
 		dialogue.logErrorMessage = this.logErrorMessage;
 		dialogue.lineHandler = this.lineHandler;

@@ -176,7 +176,7 @@ Everyone is trying to get somewhere.
 You are hoping that your somewhere arrives soon.
 You're already pushing it but your destination, your new job, is in sight.
 -> Detour for some coffee
-    <<success +>>
+    <<success>>
     <<jump Parents>>
 -> Keep heading towards work 
 Click-clacking away on your next to-do task.
@@ -184,7 +184,7 @@ Things aren't going quick but at least they are going steady.
 You tell yourself all this even though you know the launch date is quickly approaching.
 Your boss isn't going to be happy if this work doesn't get done.
 -> Take a long lunch
-    <<success +>>
+    <<success>>
     <<jump Parents>>
 -> Finish up your work
 You check your calendar to see what's coming up tomorrow.
@@ -192,7 +192,7 @@ Ugghhh...
 Your boss scheduled a meeting an hour before you normally go in.
 Just because you show up a little later than everyone else doesn't mean you do a bad job.
 -> Stay up late at the bar
-    <<success +>>
+    <<success>>
     <<jump Parents>>
 -> Go to bed early
 You can't believe it...
@@ -205,7 +205,7 @@ It's time to finally release all this stress.
 -> Go home
 -> Go home
 -> Go home
-<<success +>>
+<<success>>
 <<jump Parents>>
 ===
 title: Parents
@@ -216,7 +216,7 @@ You're left with an envelope from your mom.
 The words inside are very sweet.
 You should call her.
 -> Maybe later
-    <<success +>>
+    <<success>>
     <<jump Promotion>>
 -> Call her
 Knock, Knock, Knock.
@@ -225,10 +225,10 @@ He brought you some chili he made yesterday.
 The container is still cold to the touch but the lingering scent and weigth feel bursting with comfort.
 You know this is going to taste great.
 -> Say goodbye 
-    <<success +>>
+    <<success>>
     <<jump Promotion>>
 -> Invite him in
-    <<success +>>
+    <<success>>
     <<jump Promotion>>
 * Ring Ring *
 How's work going?

@@ -1,3 +1,4 @@
+import hxyarn.dialogue.Command;
 import h2d.Interactive;
 import h2d.Flow;
 import h2d.Text;
@@ -34,6 +35,14 @@ class Main extends hxd.App {
 	var bg:Bitmap;
 	var continueText:Text;
 	var firstFrame = true;
+
+	var successBar:Bar;
+	var success:Float = 0;
+	var successIncrement:Float = 1 / 9;
+	var targetSuccess:Float = 0;
+	var successShowLength = 2.5;
+	var successShowTime:Float = 0;
+	var showingSuccess = false;
 
 	var onTitle = true;
 	var textBox:Bitmap;
@@ -130,6 +139,12 @@ class Main extends hxd.App {
 
 		textBox.visible = false;
 
+		successBar = new Bar(Math.floor(width * .75), Math.floor(100), s2d);
+		successBar.x = width / 2 - successBar.outerWidth / 2;
+		successBar.y = height / 2 - successBar.outerHeight / 2;
+		successBar.set(0, 1);
+		successBar.visible = false;
+
 		dialogue = new DialogueManager();
 		dialogue.lineHandlerCallback = function(line:Line):HandlerExecutionType {
 			lineFlow.visible = true;
@@ -189,6 +204,15 @@ class Main extends hxd.App {
 				bg.visible = false;
 			}
 		}
+
+		dialogue.dialogue.commandHandler = function(command:Command) {
+			if (command.text == "success") {
+				showingSuccess = true;
+				targetSuccess = success + successIncrement;
+				successShowTime = 0;
+				successBar.visible = true;
+			}
+		};
 	}
 
 	function startGame() {
@@ -220,6 +244,21 @@ class Main extends hxd.App {
 		}
 
 		if (onTitle) {
+			return;
+		}
+
+		if (showingSuccess) {
+			successShowTime += Timer.elapsedTime;
+			success = Math.max(0, targetSuccess - successIncrement) + (successIncrement * (successShowTime / successShowLength));
+			successBar.set(Math.min(success, 1), 1);
+
+			if (successShowTime >= successShowLength) {
+				success = targetSuccess;
+				showingSuccess = false;
+				successBar.visible = false;
+				dialogue.resume();
+			}
+
 			return;
 		}
 
