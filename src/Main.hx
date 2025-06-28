@@ -1,3 +1,5 @@
+import h2d.Particles;
+import h2d.filter.DropShadow;
 import hxyarn.dialogue.Command;
 import h2d.Interactive;
 import h2d.Flow;
@@ -36,6 +38,11 @@ class Main extends hxd.App {
 	var continueText:Text;
 	var firstFrame = true;
 
+	var successText:Text;
+	var successTextOnLength = 1;
+	var successTextOffLength = .66;
+	var successTextTimer:Float = 0;
+
 	var successBar:Bar;
 	var success:Float = 0;
 	var successIncrement:Float = 1 / 9;
@@ -44,8 +51,17 @@ class Main extends hxd.App {
 	var successShowTime:Float = 0;
 	var showingSuccess = false;
 
+	var successParticles:Particles;
+
+	var nextSceneTimerLength:Float = 1;
+	var nextSceneTimer:Float = 0;
+	var nextSceneTrigger = false;
+
 	var onTitle = true;
 	var textBox:Bitmap;
+
+	var width = 800;
+	var height = 600;
 
 	override function init() {
 		// Heaps resources
@@ -57,9 +73,6 @@ class Main extends hxd.App {
 
 		var ctx = Engine.getCurrent();
 		ctx.backgroundColor = 0x181425;
-
-		var width = 800;
-		var height = 600;
 
 		s2d.scaleMode = ScaleMode.LetterBox(width, height);
 
@@ -145,8 +158,29 @@ class Main extends hxd.App {
 		successBar.set(0, 1);
 		successBar.visible = false;
 
+		successText = new Text(textFont, s2d);
+		successText.text = "SUCCESS";
+		successText.setScale(1.5);
+		moveSuccessText();
+		successText.visible = false;
+		successText.dropShadow = {
+			dx: .8,
+			dy: .8,
+			alpha: .75,
+			color: 0x000000
+		};
+
+		successParticles = new Particles(s2d);
+		successParticles.load(haxe.Json.parse(hxd.Res.particles.success.entry.getText()), hxd.Res.particles.success.entry.path);
+		successParticles.y = height;
+		successParticles.visible = false;
+		successParticles.getGroup('Left').speed = -400;
+		successParticles.getGroup('Right').speed = -400;
+
 		dialogue = new DialogueManager();
+
 		dialogue.lineHandlerCallback = function(line:Line):HandlerExecutionType {
+			textBox.visible = true;
 			lineFlow.visible = true;
 			optionFlow.visible = false;
 			var textString = dialogue.getComposedTextForLine(line);
@@ -161,6 +195,7 @@ class Main extends hxd.App {
 			return HandlerExecutionType.ContinueExecution;
 		}
 		dialogue.optionHandlerCallback = function(options:OptionSet) {
+			textBox.visible = true;
 			lineFlow.visible = false;
 			continueText.visible = false;
 			optionFlow.visible = true;
@@ -185,7 +220,10 @@ class Main extends hxd.App {
 						dialogue.dialogue.setSelectedOption(option.id);
 						clearOptions();
 						options = null;
+						optionFlow.visible = false;
+						i.onClick = null;
 						dialogue.resume();
+						textBox.visible = false;
 					}
 				}
 			}
@@ -211,6 +249,12 @@ class Main extends hxd.App {
 				targetSuccess = success + successIncrement;
 				successShowTime = 0;
 				successBar.visible = true;
+				successText.visible = true;
+				moveSuccessText();
+				successTextTimer = 0;
+				successParticles.visible = true;
+				successParticles.getGroup('Left').speed = 400;
+				successParticles.getGroup('Right').speed = 400;
 			}
 		};
 	}
@@ -222,6 +266,11 @@ class Main extends hxd.App {
 		bg.tile = backgrounds[0];
 		bgIndex = 0;
 		onTitle = false;
+	}
+
+	function moveSuccessText() {
+		successText.x = 16 + (width - successText.textWidth - 32) * Math.random();
+		successText.y = 16 + (height - successText.textHeight - 32) * Math.random();
 	}
 
 	function clearOptions() {
@@ -247,6 +296,34 @@ class Main extends hxd.App {
 			return;
 		}
 
+		if (nextSceneTrigger || showingSuccess) {
+			successTextTimer += Timer.elapsedTime;
+
+			if (successText.visible && successTextTimer > successTextOnLength) {
+				successText.visible = false;
+				successTextTimer = 0;
+			} else if (successTextTimer > successTextOffLength) {
+				moveSuccessText();
+				successText.visible = true;
+				successTextTimer = 0;
+			}
+		}
+
+		if (nextSceneTrigger) {
+			nextSceneTimer += Timer.elapsedTime;
+			if (nextSceneTimer > nextSceneTimerLength) {
+				dialogue.resume();
+				nextSceneTrigger = false;
+				successBar.visible = false;
+				successText.visible = false;
+				successParticles.visible = false;
+				successParticles.getGroup('Left').speed = -400;
+				successParticles.getGroup('Right').speed = -400;
+			}
+
+			return;
+		}
+
 		if (showingSuccess) {
 			successShowTime += Timer.elapsedTime;
 			success = Math.max(0, targetSuccess - successIncrement) + (successIncrement * (successShowTime / successShowLength));
@@ -255,8 +332,8 @@ class Main extends hxd.App {
 			if (successShowTime >= successShowLength) {
 				success = targetSuccess;
 				showingSuccess = false;
-				successBar.visible = false;
-				dialogue.resume();
+				nextSceneTimer = 0;
+				nextSceneTrigger = true;
 			}
 
 			return;
@@ -292,14 +369,20 @@ class Main extends hxd.App {
 			if (Key.isPressed(Key.NUMBER_1)) {
 				dialogue.dialogue.setSelectedOption(0);
 				options = null;
+				optionFlow.visible = false;
+				textBox.visible = false;
 				dialogue.resume();
 			} else if (options.options.length > 1 && Key.isPressed(Key.NUMBER_2)) {
 				dialogue.dialogue.setSelectedOption(1);
 				options = null;
+				optionFlow.visible = false;
+				textBox.visible = false;
 				dialogue.resume();
 			} else if (options.options.length > 2 && Key.isPressed(Key.NUMBER_3)) {
 				dialogue.dialogue.setSelectedOption(2);
 				options = null;
+				optionFlow.visible = false;
+				textBox.visible = false;
 				dialogue.resume();
 			}
 		}
