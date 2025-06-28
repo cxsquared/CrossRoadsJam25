@@ -2,5 +2,7 @@ common.hxml
 
 -D windowTitle=The Future Freaks Me Out
 -lib hldx 
+-D windowWidth=1200
+-D windowHeight=900
 -hl bin/hl/hello.hl
 --debug

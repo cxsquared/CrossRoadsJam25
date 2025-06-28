@@ -96,7 +96,8 @@ The buildings standing tall and new all around you.
 Full of potential.
 Potential for what?
 You don't quite know yet.
-Stalls are erected inviting you to join the many groups that represent just a small selection of the communities you'll interact with over the next few years.
+Stalls are erected inviting you to join the them.
+They represent just a small selection of the communities you'll interact with over the next few years.
 -> Continue walking to your dorm
     <<success>>
     <<jump JobHunt>>
@@ -314,4 +315,5 @@ Am I the right person that should be here and now?
 -> I should be here
 -> I shouldn't be here
 .........
+<<success>>
 ===
