@@ -1,4 +1,5 @@
-import hxd.res.Font;
+import h2d.Interactive;
+import h2d.Flow;
 import h2d.Text;
 import hxd.Math;
 import hxd.Timer;
@@ -15,16 +16,22 @@ import hxyarn.dialogue.Dialogue.HandlerExecutionType;
 
 class Main extends hxd.App {
 	var dialogue:DialogueManager;
+
 	var options:OptionSet = null;
-	var backgrounds:Array<Tile>;
-	var bgIndex = 8;
-	var bg:Bitmap;
+	var optionInteractions = new Array<Interactive>();
+	var optionFlow:Flow;
+
+	var lineFlow:Flow;
 	var currentLine = null;
 	var charactersPerSecond = 30;
 	var progressLength:Int;
 	var progress:Int = 0;
 	var textElapsed:Float = 0;
 	var text:HtmlText;
+
+	var backgrounds:Array<Tile>;
+	var bgIndex = 8;
+	var bg:Bitmap;
 	var continueText:Text;
 	var firstFrame = true;
 
@@ -72,23 +79,49 @@ class Main extends hxd.App {
 		textBox.x = 16;
 		textBox.y = height - (height / 2.5) + 16;
 
-		var flow = new h2d.Flow(textBox);
-		flow.borderWidth = 8;
-		flow.borderHeight = 8;
-		flow.padding = 16;
-		flow.horizontalAlign = FlowAlign.Left;
-		flow.verticalAlign = FlowAlign.Top;
-		flow.maxWidth = Std.int(textBox.width) - 8;
-		flow.maxHeight = Std.int(textBox.height) - 8;
+		lineFlow = new h2d.Flow(textBox);
+		lineFlow.borderWidth = 8;
+		lineFlow.borderHeight = 8;
+		lineFlow.padding = 16;
+		lineFlow.horizontalAlign = FlowAlign.Left;
+		lineFlow.verticalAlign = FlowAlign.Top;
+		lineFlow.maxWidth = Std.int(textBox.width) - 8;
+		lineFlow.maxHeight = Std.int(textBox.height) - 8;
 
-		text = new HtmlText(hxd.Res.fonts.lekton.toFont(), flow);
+		var textFont = hxd.Res.fonts.lekton.toFont();
+
+		text = new HtmlText(textFont, lineFlow);
 
 		text.textAlign = Align.Left;
 		text.setScale(1);
 		text.text = "";
-		text.maxWidth = flow.maxWidth - 32;
+		text.maxWidth = lineFlow.maxWidth - 32;
 
-		continueText = new Text(hxd.Res.fonts.lekton.toFont(), textBox);
+		optionFlow = new Flow(textBox);
+		optionFlow.borderWidth = 8;
+		optionFlow.borderHeight = 8;
+		optionFlow.padding = 16;
+		optionFlow.verticalSpacing = 8;
+		optionFlow.horizontalAlign = FlowAlign.Left;
+		optionFlow.verticalAlign = FlowAlign.Top;
+		optionFlow.maxWidth = Std.int(textBox.width) - 8;
+		optionFlow.maxHeight = Std.int(textBox.height) - 8;
+		optionFlow.layout = FlowLayout.Vertical;
+		optionFlow.visible = false;
+
+		for (i in 0...3) {
+			var t = new Text(textFont, optionFlow);
+			t.textAlign = Align.Left;
+			t.setScale(1);
+			t.text = "";
+			t.maxWidth = lineFlow.maxWidth - 32;
+
+			var i = new Interactive(1, 1, t);
+			i.visible = false;
+			optionInteractions.push(i);
+		}
+
+		continueText = new Text(textFont, textBox);
 		continueText.setScale(.8);
 		continueText.text = "Press space to continue";
 		continueText.x = textBox.width - 8 - (continueText.textWidth * .8);
@@ -99,6 +132,8 @@ class Main extends hxd.App {
 
 		dialogue = new DialogueManager();
 		dialogue.lineHandlerCallback = function(line:Line):HandlerExecutionType {
+			lineFlow.visible = true;
+			optionFlow.visible = false;
 			var textString = dialogue.getComposedTextForLine(line);
 			currentLine = textString;
 			progress = 0;
@@ -111,18 +146,32 @@ class Main extends hxd.App {
 			return HandlerExecutionType.ContinueExecution;
 		}
 		dialogue.optionHandlerCallback = function(options:OptionSet) {
+			lineFlow.visible = false;
 			continueText.visible = false;
+			optionFlow.visible = true;
+
+			clearOptions();
+
 			this.options = options;
-			text.text = "";
 			var optionText = new Array<String>();
 
 			for (option in options.options) {
+				var t = cast(optionFlow.getChildAt(option.id), Text);
 				var textString = dialogue.getComposedTextForLine(option.line);
 				optionText.push(textString);
-				if (text.text == "") {
-					text.text = '(${option.id + 1}) $textString';
-				} else {
-					text.text = text.text + '<br/>(${option.id + 1}) $textString';
+				t.text = '(${option.id + 1}) $textString';
+
+				var i = optionInteractions[option.id];
+				i.width = t.textWidth;
+				i.height = t.textHeight;
+				i.visible = true;
+				i.onClick = function(e:hxd.Event) {
+					if (e.keyCode == Key.MOUSE_LEFT) {
+						dialogue.dialogue.setSelectedOption(option.id);
+						clearOptions();
+						options = null;
+						dialogue.resume();
+					}
 				}
 			}
 		}
@@ -151,10 +200,22 @@ class Main extends hxd.App {
 		onTitle = false;
 	}
 
+	function clearOptions() {
+		for (i in 0...3) {
+			var t = cast(optionFlow.getChildAt(i), Text);
+			t.text = "";
+			var i = optionInteractions[i];
+			i.visible = false;
+			i.onClick = null;
+		}
+
+		options = null;
+	}
+
 	override function update(dt:Float) {
 		super.update(dt);
 
-		if (onTitle && Key.isPressed(Key.SPACE)) {
+		if (onTitle && (Key.isPressed(Key.SPACE) || Key.isPressed(Key.MOUSE_LEFT))) {
 			startGame();
 		}
 
@@ -173,7 +234,7 @@ class Main extends hxd.App {
 			}
 		}
 
-		if (!firstFrame && options == null && Key.isPressed(Key.SPACE)) {
+		if (!firstFrame && options == null && (Key.isPressed(Key.SPACE) || Key.isPressed(Key.MOUSE_LEFT))) {
 			if (progress < progressLength) {
 				progress = progressLength;
 				text.text = currentLine;
