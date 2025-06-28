@@ -1,5 +1,4 @@
 import h2d.Particles;
-import h2d.filter.DropShadow;
 import hxyarn.dialogue.Command;
 import h2d.Interactive;
 import h2d.Flow;
@@ -58,6 +57,7 @@ class Main extends hxd.App {
 	var nextSceneTrigger = false;
 
 	var end = false;
+	var endText:Text;
 	var onTitle = true;
 	var textBox:Bitmap;
 
@@ -268,10 +268,10 @@ class Main extends hxd.App {
 			options = null;
 			end = true;
 
-			var fin = new Text(textFont, s2d);
-			fin.text = "The feature freaks me out...";
-			fin.x = width / 2 - fin.textWidth / 2;
-			fin.y = height / 2 - fin.textHeight / 2;
+			endText = new Text(textFont, s2d);
+			endText.text = "The feature freaks me out...";
+			endText.x = width / 2 - endText.textWidth / 2;
+			endText.y = height / 2 - endText.textHeight / 2;
 		};
 	}
 
@@ -311,6 +311,16 @@ class Main extends hxd.App {
 		clearOptions();
 	}
 
+	function toTitle() {
+		bg.tile = backgrounds[backgrounds.length - 1];
+		bg.visible = true;
+		endText.remove();
+		optionFlow.visible = false;
+		textBox.visible = false;
+		onTitle = true;
+		end = false;
+	}
+
 	override function update(dt:Float) {
 		super.update(dt);
 
@@ -323,6 +333,9 @@ class Main extends hxd.App {
 		}
 
 		if (end) {
+			if (Key.isPressed(Key.SPACE) || Key.isPressed(Key.MOUSE_LEFT)) {
+				toTitle();
+			}
 			return;
 		}
 
