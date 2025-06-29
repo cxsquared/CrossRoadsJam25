@@ -63,6 +63,8 @@ class Main extends hxd.App {
 
 	var width = 800;
 	var height = 600;
+	var currentTracksToBeOn = new Array<Array<Int>>();
+	var currentTrackIndex = 0;
 
 	override function init() {
 		// Heaps resources
@@ -71,6 +73,16 @@ class Main extends hxd.App {
 		#else
 		hxd.Res.initEmbed();
 		#end
+
+		currentTracksToBeOn.push([0]);
+		currentTracksToBeOn.push([0, 1]);
+		currentTracksToBeOn.push([0, 1, 2]);
+		currentTracksToBeOn.push([0, 1, 2, 3]);
+		currentTracksToBeOn.push([0, 1, 2, 4]);
+		currentTracksToBeOn.push([0, 1, 2, 4, 5]);
+		currentTracksToBeOn.push([1, 2]);
+		currentTracksToBeOn.push([1, 2, 4, 5]);
+		currentTracksToBeOn.push([1]);
 
 		var ctx = Engine.getCurrent();
 		ctx.backgroundColor = 0x181425;
@@ -226,6 +238,10 @@ class Main extends hxd.App {
 		}
 
 		dialogue.dialogue.nodeStartHandler = function(nodeName:String) {
+			SoundManager.getInstance().stopMusic();
+			currentTrackIndex++;
+			turnOnTracks();
+
 			if (nodeName == "Future") {
 				bg.visible = false;
 				return;
@@ -241,6 +257,8 @@ class Main extends hxd.App {
 
 		dialogue.dialogue.commandHandler = function(command:Command) {
 			if (command.text == "success") {
+				SoundManager.getInstance().stopMusic();
+				SoundManager.getInstance().success();
 				showingSuccess = true;
 				targetSuccess = success + successIncrement;
 				successShowTime = 0;
@@ -272,10 +290,18 @@ class Main extends hxd.App {
 			endText.text = "The feature freaks me out...";
 			endText.x = width / 2 - endText.textWidth / 2;
 			endText.y = height / 2 - endText.textHeight / 2;
+
+			turnOnTracks();
 		};
+
+		SoundManager.getInstance().loadMusic();
+		SoundManager.getInstance().playTitleMusic();
 	}
 
 	function startGame() {
+		SoundManager.getInstance().stopMusic();
+		SoundManager.getInstance().startMusic();
+		currentTrackIndex = -1;
 		onTitle = false;
 		dialogue.runNode("WakeUp");
 		textBox.visible = true;
@@ -288,6 +314,12 @@ class Main extends hxd.App {
 	function moveSuccessText() {
 		successText.x = 16 + (width - successText.textWidth - 32) * Math.random();
 		successText.y = 16 + (height - successText.textHeight - 32) * Math.random();
+	}
+
+	function turnOnTracks() {
+		for (i in currentTracksToBeOn[currentTrackIndex]) {
+			SoundManager.getInstance().turnOnTrack(i);
+		}
 	}
 
 	function clearOptions() {
@@ -312,6 +344,9 @@ class Main extends hxd.App {
 	}
 
 	function toTitle() {
+		SoundManager.getInstance().stopMusic();
+		SoundManager.getInstance().playTitleMusic();
+
 		bg.tile = backgrounds[backgrounds.length - 1];
 		bg.visible = true;
 		endText.remove();

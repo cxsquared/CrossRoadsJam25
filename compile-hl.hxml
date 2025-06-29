@@ -1,0 +1,6 @@
+common.hxml
+
+-D windowTitle=The Future Freaks Me Out
+-lib hldx 
+-lib hlopenal
+-hl bin/hl/hello.hl
